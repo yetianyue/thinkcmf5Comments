@@ -1,0 +1,52 @@
+<link rel="stylesheet" type="text/css" href="__ROOT__/plugins/comments/view/public/assets/css/comments.css">
+<div class="detail-comment" id="comment_area">
+    <div class="comment-header">
+        <em>{$comment_count}</em>条评论
+    </div>
+    <div class="comment-input v-center clear">
+        <div class="comment-box clear">
+            <div class="comment-image pull-left">
+                <if condition="empty($user['avatar'])">
+                    <img src="__TMPL__/public/assets/images/headicon.png" />
+                    <else/>
+                    <img src="{:cmf_get_user_avatar_url($user['avatar'])}"/>
+                </if>
+            </div>
+            <div class="input-box pull-left" id="inputCommentBox">
+                <div class="textarea-box">
+                    <form id="inputComment">
+                        <input type="hidden" name="parent_id" id="inpPId" value="0"/>
+                        <input type="hidden" name="object_id" id="inpOId" value="{$post_id}"/>
+                        <input type="hidden" name="table_name" id="tablename" value="{$post_table}" />
+                        <textarea name="content" id="comentContent" class="mytextarea" placeholder="写下您的评论..."></textarea>
+                    </form>
+                </div>
+                <div class="button-box-top" id="buttomBoxTop">
+                    <div class="comment-button" id="commentButtom">评论</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ul class="comment-list clear" id="commentListSummey" >
+    </ul>
+    <div class="comment-load-more" id="loadMoreComment" style="display: none;">查看所有评论</div>
+    <a href="#comment_area" class="comment-no-more" id="noMoreComment" style="display: none;">
+        浏览完了吧，就等您评论了!
+    </a>
+</div>
+<div id="commentLayer" class="comment-layer" style="display: none;"></div>
+<script type="text/javascript" src="__STATIC__/js/jquery.js"></script>
+<script type="text/javascript">
+    var COMMENT_INFO = {:json_encode($comments)};
+    var USER_INFO = {
+        id:'{$user.id}',
+        user_nickname:'{$user.user_nickname}',
+        avatarUrl:'{:cmf_get_user_avatar_url($user.avatar)}',
+    }
+    var LI_HEIGHT = 100 ;
+    var LI_NUMS =  0;
+    var COMMENT_LIST = $('#commentListSummey');
+    var PLUGIN_COMMENT_URL = "{:cmf_plugin_url('comments://Index/ajaxComment')}";
+    var PLUGIN_CLICK_URL = "{:cmf_plugin_url('comments://Index/ajaxDoClick')}";
+</script>
+<script type="text/javascript" src="__ROOT__/plugins/comments/view/public/assets/js/comments.js"></script>
